@@ -19,7 +19,7 @@ public class DynamicArrayStack{
 	protected int capacity;
 
 	// Default array capacity.
-	public static final int CAPACITY = 16;	// power of 2
+	public static final int CAPACITY = 1<<16;	// power of 2
 	
 	public static int MINCAPACITY=1<<15; // power of 2
 
@@ -68,12 +68,16 @@ public class DynamicArrayStack{
 	}
 	
 	// dynamic array operation: shrinks to 1/2 if more than than 3/4 empty
-	@SuppressWarnings("unused")
 	private void shrink() {
+		System.out.println("Inside shrink");
 		int length = top + 1;
-		if(length<=MINCAPACITY || top<<2 >= length) 
+		if(length<=MINCAPACITY || top<<2 >= length) {
+			System.out.println("top is "+top);
+			System.out.println("length is "+length);
 			return;
+		}	
 		length=length + (top<<1); // still means shrink to at 1/2 or less of the heap
+		System.out.println("length after "+length);
 		if(top<MINCAPACITY) length = MINCAPACITY;
 		int[] newStack=new int[length];
 		System.arraycopy(stackRep,0,newStack,0,top+1);
